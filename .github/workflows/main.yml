@@ -1,0 +1,28 @@
+name: Deploy to EC2
+
+on:
+  push:
+    branches:
+      - main  # Adjust the branch name if needed
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Install dependencies, build your code if needed
+
+      - name: Copy code to EC2
+        uses: appleboy/scp-action@master
+        run: echo ${{ secrets.EC2_HOST }}
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_PRIVATE_KEY }}
+          source: "."  # Source directory or files to copy
+          target: "/home/ubuntu/"  # Destination directory on EC2
+
+      # Add any additional steps like running deployment scripts on EC2
