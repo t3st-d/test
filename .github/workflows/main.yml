@@ -3,7 +3,7 @@ name: Deploy to EC2
 on:
   push:
     branches:
-      - main  # Adjust the branch name if needed
+      - main
 
 jobs:
   deploy:
@@ -15,9 +15,16 @@ jobs:
 
       # Install dependencies, build your code if needed
 
+      - name: Display EC2 host
+        
+
+      - name: Display EC2 username
+
+      # Do not display the private key!
+      # It's highly sensitive and should never be exposed in the logs
+
       - name: Copy code to EC2
         uses: appleboy/scp-action@master
-        run: echo ${{ secrets.EC2_HOST }}
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USERNAME }}
